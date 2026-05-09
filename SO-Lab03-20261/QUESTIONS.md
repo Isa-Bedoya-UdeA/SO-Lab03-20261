@@ -1,8 +1,9 @@
 # Respuestas a Preguntas del Laboratorio 3
 
 ## Equipo
-* Rafael Angel Alemán Castillo - rafael.aleman@udea.edu.co - CC. 1001560844
-* Isabela Bedoya Gaviria - isabela.bedoya@udea.edu.co - CC. 1020106520
+
+* Rafael Angel Alemán Castillo - [rafael.aleman@udea.edu.co](rafael.aleman@udea.edu.co) - CC. 1001560844
+* Isabela Bedoya Gaviria - [isabela.bedoya@udea.edu.co](isabela.bedoya@udea.edu.co) - CC. 1020106520
 
 ---
 

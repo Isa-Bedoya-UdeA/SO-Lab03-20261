@@ -1,22 +1,21 @@
 # Laboratorio 3 — Gestión de Memoria
-**Laboratorio de Sistemas Operativos · Universidad de Antioquia**
+
+> Laboratorio de Sistemas Operativos · Universidad de Antioquia
 
 ---
 
 ## Integrantes
 
 | Nombre completo | Correo | Documento |
-|-----------------|--------|-----------|
-| _(Nombre 1)_    | _(correo@udea.edu.co)_ | _(CC XXXXXXXXXX)_ |
-| _(Nombre 2)_    | _(correo@udea.edu.co)_ | _(CC XXXXXXXXXX)_ |
-
-> **Nota:** Reemplazar los campos entre paréntesis con los datos reales antes de entregar.
+| --------------- | ------ | --------- |
+| Rafael Alemán | [rafael.aleman@udea.edu.co](rafael.aleman@udea.edu.co) | C.C. 1001560844 |
+| Isabela Bedoya | [isabela.bedoya@udea.edu.co](isabela.bedoya@udea.edu.co) | C.C. 1020106520 |
 
 ---
 
 ## Estructura del repositorio
 
-```
+```plain text
 SO-Lab03-20261/
 ├── README.md                  ← Este informe
 ├── QUESTIONS.md               ← Respuestas a todas las preguntas del enunciado
@@ -80,35 +79,41 @@ cd 07-tlb && gcc -O0 -o tlb_locality tlb_locality.c && ./tlb_locality
 ## Documentación de funciones desarrolladas
 
 ### 01-address-space/mem_map.c
+
 | Función | Descripción |
-|---------|-------------|
+| ------- | ----------- |
 | `main()` | Imprime el PID y las direcciones virtuales de variables en cada segmento (código, datos globales, stack, heap). Pausa con `getchar()` para permitir inspeccionar `/proc/<pid>/maps`. |
 
 ### 02-memory-api/heap_demo.c
+
 | Función | Descripción |
-|---------|-------------|
+| ------- | ----------- |
 | `main()` | Asigna un arreglo de 10 enteros con `malloc`, lo llena con cuadrados, lo expande a 20 con `realloc`, completa los nuevos valores y libera correctamente con `free`. |
 
 ### 02-memory-api/buggy_mem_fixed.c
+
 | Función | Descripción |
-|---------|-------------|
+| ------- | ----------- |
 | `main()` | Versión corregida de `buggy_mem.c`: bucle con `i < 5` (no `<=`), lectura de `p[0]` antes de `free(p)`, y `free(q)` antes del return. |
 
 ### 03-base-bounds/base_bounds.c
+
 | Función | Descripción |
-|---------|-------------|
+| ------- | ----------- |
 | `traducir(Registro r, int va)` | Aplica la fórmula PA = VA + base, validando que `0 ≤ VA < bounds`. Imprime una excepción si la VA viola el bounds. Retorna la PA o -1. |
 | `main()` | Declara los registros de los Procesos A, B y C, y traduce el conjunto de VAs `{0, 10, 63, 64, 100}` para cada proceso. |
 
 ### 05-paging/paging_sim.c
+
 | Función | Descripción |
-|---------|-------------|
-| `traducir(int va)` | Extrae el VPN (bits altos) y el offset (bits bajos) de la VA. Consulta la tabla de páginas: si PFN == -1 reporta PAGE FAULT; si no, calcula PA = (PFN << PAGE_BITS) | offset. |
+| ------- | ----------- |
+| `traducir(int va)` | Extrae el VPN (bits altos) y el offset (bits bajos) de la VA. Consulta la tabla de páginas: si PFN == -1 reporta PAGE FAULT; si no, calcula PA = (PFN << PAGE_BITS) |
 | `main()` | Ejecuta la traducción sobre el conjunto de VAs del enunciado e imprime la tabla de resultados. |
 
 ### 06-free-space/free_list_sim.c
+
 | Función | Descripción |
-|---------|-------------|
+| ------- | ----------- |
 | `init_list(Block list[], int *n)` | Inicializa la lista libre con los 5 bloques del enunciado (0x0100→100B … 0x0700→600B). |
 | `print_list(Block list[], int n)` | Imprime el estado actual de cada bloque (dirección, tamaño, libre/asignado). |
 | `first_fit(Block list[], int *n, int request)` | Busca el primer bloque libre con tamaño ≥ request. Si lo encuentra, lo marca asignado y divide el remanente en un nuevo bloque libre. Retorna la dirección asignada o -1. |
@@ -116,13 +121,15 @@ cd 07-tlb && gcc -O0 -o tlb_locality tlb_locality.c && ./tlb_locality
 | `run_strategy(name, strategy)` | Inicializa la lista, ejecuta las 4 solicitudes del enunciado con la estrategia dada, imprime cada asignación y el estado final. |
 
 ### 06-free-space/fragmentation.c
+
 | Función | Descripción |
-|---------|-------------|
+| ------- | ----------- |
 | `main()` | Asigna 10 bloques de tamaños variados, calcula el overhead de glibc entre bloques contiguos, libera los de índice par para crear huecos no contiguos, e intenta asignar un bloque de 1500 bytes reportando el resultado. |
 
 ### 07-tlb/tlb_locality.c
+
 | Función | Descripción |
-|---------|-------------|
+| ------- | ----------- |
 | `ms(struct timespec a, struct timespec b)` | Calcula la diferencia en milisegundos entre dos instantes de tiempo medidos con `clock_gettime`. |
 | `main()` | Asigna un arreglo de 16 MB, lo recorre de forma **secuencial** (alta localidad espacial, muchos TLB hits) y luego de forma **aleatoria** usando una permutación Fisher-Yates (baja localidad, muchos TLB misses). Imprime los tiempos y el factor de diferencia. |
 
@@ -131,7 +138,7 @@ cd 07-tlb && gcc -O0 -o tlb_locality tlb_locality.c && ./tlb_locality
 ## Problemas presentados y soluciones
 
 | Problema | Solución aplicada |
-|----------|-------------------|
+| -------- | ----------------- |
 | `heap_demo.c` tenía un bug de formato: el arreglo ampliado se imprimía sin espacios entre números (`0149...` en lugar de `0 1 4 9...`) | Se corrigió el `printf` del segundo bucle usando `"%d "` y se añadió espacio después del colon en el mensaje. |
 | `base_bounds.c` no incluía el Proceso C requerido en la actividad 3.2.2 | Se agregó `Registro procC = {0, 32}` y el bucle de traducción correspondiente. |
 | La actividad 6.1 requería simular first fit y best fit manualmente: resultado tedioso y propenso a error | Se implementó `free_list_sim.c` que simula ambas estrategias automáticamente, mostrando cada paso de asignación y el estado final de la lista libre. |
@@ -142,13 +149,15 @@ cd 07-tlb && gcc -O0 -o tlb_locality tlb_locality.c && ./tlb_locality
 ## Pruebas realizadas
 
 ### Sección 2 — Valgrind en heap_demo (sin errores)
-```
+
+```plain text
 ERROR SUMMARY: 0 errors from 0 contexts
 All heap blocks were freed -- no leaks are possible
 ```
 
 ### Sección 2 — Valgrind en buggy_mem (3 errores detectados)
-```
+
+```plain text
 Invalid write of size 4    → buffer overflow (línea 10)
 Invalid read of size 4     → use-after-free (línea 19)
 100 bytes definitely lost  → memory leak (línea 13)
@@ -156,31 +165,36 @@ ERROR SUMMARY: 3 errors from 3 contexts
 ```
 
 ### Sección 2 — Valgrind en buggy_mem_fixed (sin errores)
-```
+
+```plain text
 ERROR SUMMARY: 0 errors from 0 contexts
 All heap blocks were freed -- no leaks are possible
 ```
 
 ### Sección 3 — base_bounds: VAs válidas e inválidas
-```
+
+```plain text
 Proceso A: VA=0→PA=32 ✓, VA=63→PA=95 ✓, VA=64→EXCEPCIÓN ✓
 Proceso C: VA=0→PA=0 ✓, VA=10→PA=10 ✓, VA=63→EXCEPCIÓN ✓
 ```
 
 ### Sección 5 — paging_sim: page faults correctos
-```
+
+```plain text
 VA=0x10 (VPN=1, page_table[1]=-1) → PAGE FAULT ✓
 VA=0xF0 (VPN=15, page_table[15]=-1) → PAGE FAULT ✓
 ```
 
 ### Sección 6 — free_list_sim: diferencia entre estrategias
-```
+
+```plain text
 First Fit: malloc(426) → FALLO (973B libres pero fragmentados)
 Best Fit:  malloc(426) → 0x0700  (satisface las 4 solicitudes)
 ```
 
 ### Sección 7 — tlb_locality: promedio 3 runs
-```
+
+```plain text
 Secuencial: ~9.47 ms | Aleatorio: ~52.89 ms | Factor: ~5.6×
 ```
 
