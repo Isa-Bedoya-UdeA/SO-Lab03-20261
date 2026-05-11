@@ -202,7 +202,7 @@ Secuencial: ~9.47 ms | Aleatorio: ~52.89 ms | Factor: ~5.6×
 
 ## Video de sustentación
 
-> 🎥 [Insertar enlace al video de YouTube/Drive de 10 minutos aquí]
+[https://drive.google.com/file/d/1zVpIOgW1m31LihJUSASG7tduQY7Si40t/view?usp=sharing](https://drive.google.com/file/d/1zVpIOgW1m31LihJUSASG7tduQY7Si40t/view?usp=sharing)
 
 ---
 
