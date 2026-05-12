@@ -187,12 +187,18 @@ En lugar de sumar el offset a la base, se resta desde la base considerando que l
 **Ejemplo:**
 
 Base & Bounds:
+
+```plain text
 [Code|Heap|---espacio vacío---|Stack]
 └─────────── todo reservado ──────────┘
+```
 
 Segmentación:
+
+```plain text
 [Code] ... [Heap] ... [Stack]
 └─────┘    └────┘     └─────┘
+```
 Solo se asigna memoria física a regiones usadas
 
 
@@ -207,23 +213,32 @@ Solo se asigna memoria física a regiones usadas
 A medida que procesos se crean y terminan, se liberan segmentos de tamaños variables, dejando "huecos" en la memoria física:
 
 Estado inicial:
+
+```plain text
 ┌────────┬────────┬────────┬────────┐
 │ Proc A │ Proc B │ Proc C │  Libre │
 │  32KB  │  64KB  │  16KB  │  100KB │
 └────────┴────────┴────────┴────────┘
+```
 
 Proc B termina:
+
+```plain text
 ┌────────┬────────┬────────┬────────┐
 │ Proc A │  Libre │ Proc C │  Libre │
 │  32KB  │  64KB  │  16KB  │  100KB │
 └────────┴────────┴────────┴────────┘
+```
 
 Proc C termina:
+
+```plain text
 ┌────────┬────────┬────────┬────────┐
 │ Proc A │  Libre │  Libre │  Libre │
 │  32KB  │  64KB  │  16KB  │  100KB │
 └────────┴────────┴────────┴────────┘
 └── 64KB ─┘ └─ 16KB ──┘ └── 100KB ──┘
+```
 
 Memoria libre total: 180 KB
 ¡Pero no se puede asignar un segmento de 128 KB!
