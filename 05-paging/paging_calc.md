@@ -32,10 +32,12 @@ VPN = 32 - 12 = 20 bits
 
 ### Descomposición de una VA de 32 bits:
 
+```plain text
 ┌────────────────────┬─────────────┐
 │        VPN         │   Offset    │
 │      20 bits       │   12 bits   │
 └────────────────────┴─────────────┘
+```
 
 ---
 
@@ -92,10 +94,12 @@ Bits necesarios = log₂(256) = 8 bits
 
 ### Estructura de una PTE (32 bits total):
 
+```plain text
 ┌─────────┬──────────────────────────────┐
 │   PFN   │      Bits de control         │
 │ 8 bits  │         24 bits              │
 └─────────┴──────────────────────────────┘
+```
 
 ### 3 Bits de control principales:
 
@@ -115,10 +119,12 @@ Bits necesarios = log₂(256) = 8 bits
 
 PFN=0x42, Valid=1, Dirty=0, Referenced=1, Protection=r-x
 
+```plain text
 ┌──────────┬─┬─┬─┬───────┬─────────────────┐
 │ 01000010 │1│0│1│ 101   │   (reservado)   │
 │   PFN    │V│D│R│  rwx  │                 │
 └──────────┴─┴─┴─┴───────┴─────────────────┘
+```
 
 ---
 
